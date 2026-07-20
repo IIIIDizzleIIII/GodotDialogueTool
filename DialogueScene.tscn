@@ -1,0 +1,202 @@
+[gd_scene format=3 uid="uid://c10dotdgchywp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_55ycn"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_08vf1"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_efucv"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_aay13"]
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_gtste"]
+font_size = 36
+
+[node name="DialogueScene" type="Control" unique_id=1922153073]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundArt" type="TextureRect" parent="." unique_id=1615268578]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="CharacterSprite" type="TextureRect" parent="." unique_id=1224786669]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -243.5
+offset_top = -435.5
+offset_right = 243.5
+offset_bottom = 391.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainBox" type="Panel" parent="." unique_id=905576661]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -376.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Ribbon" type="Panel" parent="MainBox" unique_id=8593768]
+layout_mode = 0
+offset_top = 344.0
+offset_right = 1920.0
+offset_bottom = 376.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainBox/Ribbon" unique_id=1467352381]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="LogButton" type="Button" parent="MainBox/Ribbon/HBoxContainer" unique_id=6063166]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainBox/Ribbon/HBoxContainer/LogButton" unique_id=734411817]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.5
+offset_top = -14.0
+offset_right = 17.5
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Log"
+label_settings = SubResource("LabelSettings_55ycn")
+horizontal_alignment = 1
+
+[node name="OptionsButton" type="Button" parent="MainBox/Ribbon/HBoxContainer" unique_id=236464934]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainBox/Ribbon/HBoxContainer/OptionsButton" unique_id=1566946796]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.5
+offset_top = -14.0
+offset_right = 17.5
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_08vf1")
+horizontal_alignment = 1
+
+[node name="HideUiButton" type="Button" parent="MainBox/Ribbon/HBoxContainer" unique_id=924056038]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainBox/Ribbon/HBoxContainer/HideUiButton" unique_id=655318024]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.5
+offset_top = -14.0
+offset_right = 17.5
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Hide UI"
+label_settings = SubResource("LabelSettings_efucv")
+horizontal_alignment = 1
+
+[node name="DialogueBox" type="Panel" parent="MainBox" unique_id=1420356003]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 344.0
+
+[node name="ContinueGem" type="TextureRect" parent="MainBox/DialogueBox" unique_id=922424650]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -25.0
+offset_right = 28.0
+grow_horizontal = 2
+grow_vertical = 0
+expand_mode = 1
+
+[node name="TEMP" type="ColorRect" parent="MainBox/DialogueBox/ContinueGem" unique_id=1675833936]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainBox/DialogueBox" unique_id=311307877]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 1905.0
+offset_bottom = 315.0
+
+[node name="DialogueLabel" type="Label" parent="MainBox/DialogueBox/ScrollContainer" unique_id=1742466328]
+custom_minimum_size = Vector2(1885, 0)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_aay13")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="CharacterNameBox" type="Panel" parent="." unique_id=380502635]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -460.0
+offset_right = -1414.0
+offset_bottom = -376.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="CharacterNameBox" unique_id=1104340695]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = -15.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Firstname Lastname"
+label_settings = SubResource("LabelSettings_gtste")
+vertical_alignment = 1
