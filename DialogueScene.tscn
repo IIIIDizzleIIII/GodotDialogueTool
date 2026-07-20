@@ -41,6 +41,7 @@ offset_right = 243.5
 offset_bottom = 391.5
 grow_horizontal = 2
 grow_vertical = 2
+expand_mode = 1
 
 [node name="MainBox" type="Panel" parent="." unique_id=905576661]
 layout_mode = 1
@@ -200,3 +201,27 @@ grow_vertical = 2
 text = "Firstname Lastname"
 label_settings = SubResource("LabelSettings_gtste")
 vertical_alignment = 1
+
+[node name="DialogueChoices" type="Panel" parent="." unique_id=1986109199]
+visible = false
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1048.0
+
+[node name="Scroll" type="ScrollContainer" parent="DialogueChoices" unique_id=1984954148]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 300.0
+offset_top = 193.0
+offset_right = -300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="DialogueChoices/Scroll" unique_id=319425838]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+
+[node name="DialogueTree" type="Node" parent="." unique_id=460635159]
