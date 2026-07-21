@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c10dotdgchywp"]
 
 [ext_resource type="Script" uid="uid://b1vjx151441k6" path="res://DialogueSystem/DialogueSystem.gd" id="1_08vf1"]
+[ext_resource type="Script" uid="uid://cxtumhw08fqqn" path="res://DialogueSystem/Options.gd" id="2_wnpwp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_55ycn"]
 font_size = 20
@@ -19,6 +20,9 @@ font_size = 36
 
 [sub_resource type="LabelSettings" id="LabelSettings_bdddm"]
 font_size = 35
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ah1s"]
+font_size = 50
 
 [node name="DialogueSystem" type="Control" unique_id=1922153073]
 layout_mode = 3
@@ -274,7 +278,60 @@ offset_bottom = 1056.0
 layout_mode = 2
 theme_override_constants/separation = 10
 
+[node name="Options" type="Panel" parent="." unique_id=532130177]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_wnpwp")
+
+[node name="Title" type="Label" parent="Options" unique_id=1729025453]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.5
+offset_right = 95.5
+offset_bottom = 69.0
+grow_horizontal = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_8ah1s")
+
+[node name="Resume" type="Button" parent="Options" unique_id=2071757135]
+layout_mode = 0
+offset_left = 710.0
+offset_top = 201.0
+offset_right = 1211.0
+offset_bottom = 306.0
+theme_override_font_sizes/font_size = 30
+text = "Resume"
+
+[node name="TitleButton" type="Button" parent="Options" unique_id=1387425009]
+layout_mode = 0
+offset_left = 710.0
+offset_top = 331.0
+offset_right = 1211.0
+offset_bottom = 436.0
+theme_override_font_sizes/font_size = 30
+text = "Title"
+
+[node name="Quit" type="Button" parent="Options" unique_id=1027539145]
+layout_mode = 0
+offset_left = 710.0
+offset_top = 473.0
+offset_right = 1211.0
+offset_bottom = 578.0
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+
 [connection signal="pressed" from="MainBox/Ribbon/HBoxContainer/LogButton" to="." method="OpenLog"]
+[connection signal="pressed" from="MainBox/Ribbon/HBoxContainer/OptionsButton" to="." method="PauseGame"]
 [connection signal="pressed" from="MainBox/Ribbon/HBoxContainer/HideUiButton" to="." method="HideUi"]
 [connection signal="pressed" from="ContinueButton" to="." method="ContinuePressed"]
 [connection signal="pressed" from="HistoryLog/ExitButton" to="." method="CloseLog"]
+[connection signal="pressed" from="Options/Resume" to="Options" method="Resume"]
+[connection signal="pressed" from="Options/TitleButton" to="Options" method="Title"]
+[connection signal="pressed" from="Options/Quit" to="Options" method="Quit"]

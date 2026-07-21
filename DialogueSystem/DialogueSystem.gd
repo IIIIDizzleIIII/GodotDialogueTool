@@ -47,6 +47,7 @@ signal choice_ended
 var history_menu_open:bool = false
 var continue_pressed:bool = false
 var ui_hidden:bool = false
+var paused:bool = false
 
 
 
@@ -106,10 +107,20 @@ func HideUi():
 	ui_hidden = true
 	get_node("CharacterNameBox").visible = false
 	get_node("MainBox").visible = false
+	Engine.time_scale = 0
 func ShowUi():
 	ui_hidden = false
 	get_node("CharacterNameBox").visible = true
 	get_node("MainBox").visible = true
+	if paused == false:
+		Engine.time_scale = 1
+
+func PauseGame():
+	paused = true
+	get_node("Options").Pause()
+func ResumeGame():
+	paused = false
+	get_node("Options").Resume()
 
 func AddHistoryEntry(dialogue_event:DialogueEvent):
 	var new_entry = history_entry_scene.instantiate()
@@ -164,7 +175,7 @@ func _process(_delta) -> void:
 	if Input.is_action_just_pressed("Continue") or continue_pressed == true:
 		if ui_hidden == true:
 			ShowUi()
-		if typewriter:
+		elif typewriter:
 			EndTypewriter()
 		elif awaiting_dialogue == true:
 			dialogue_ended.emit()
@@ -178,4 +189,9 @@ func _process(_delta) -> void:
 			HideUi()
 		else:
 			ShowUi()
+	if Input.is_action_just_pressed("Pause"):
+		if paused == false:
+			PauseGame()
+		else:
+			ResumeGame()
 	continue_pressed = false
