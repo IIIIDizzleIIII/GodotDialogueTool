@@ -10,6 +10,12 @@ var speaker_name:Label = get_node("CharacterNameBox/Label")
 @onready
 var dialogue_box:Label = get_node("MainBox/DialogueBox/ScrollContainer/DialogueLabel")
 @onready
+var main_box:Panel = get_node("MainBox")
+@onready
+var name_box:Panel = get_node("CharacterNameBox")
+@onready
+var pause_menu:Panel = get_node("Options")
+@onready
 var continue_gem:TextureRect = get_node("MainBox/DialogueBox/ContinueGem")
 @onready
 var choices_menu:Panel = get_node("DialogueChoices")
@@ -76,62 +82,15 @@ func DialogueLoop():
 			get_tree().quit()
 			break
 
-func StartDialogueChoice(dialogue_event:DialogueEvent):
-	choices_menu.visible = true
-	for i in dialogue_event.dialogue_choices:
-		var new_button:Button = choice_button_scene.instantiate()
-		new_button.text = i.ChoiceDialogue
-		
-		if i.NextScene:
-			new_button.pressed.connect(func():Autoloaded.LoadNewScene.emit(i.NextScene))
-		else:
-			new_button.pressed.connect(func():EndDialogueChoice(i.NextEvent))
-		
-		choices_container.add_child(new_button)
 
-func EndDialogueChoice(next_event:DialogueEvent):
-	choices_menu.visible = false
-	choice_ended.emit(next_event)
-	for i in choices_container.get_children():
-		i.queue_free()
+func LoadDialogueEvent(Event:DialogueEvent):
+	if Event.bg_art:
+		bg_image.texture = Event.bg_art
+	if Event.character_sprite:
+		character_image.texture = Event.character_sprite
+	if Event.speaker_name:
+		speaker_name.text = Event.speaker_name
 
-func OpenLog():
-	history_menu_open = true
-	history_menu.visible = true
-
-func CloseLog():
-	history_menu_open = false
-	history_menu.visible = false
-
-func HideUi():
-	ui_hidden = true
-	get_node("CharacterNameBox").visible = false
-	get_node("MainBox").visible = false
-	Engine.time_scale = 0
-func ShowUi():
-	ui_hidden = false
-	get_node("CharacterNameBox").visible = true
-	get_node("MainBox").visible = true
-	if paused == false:
-		Engine.time_scale = 1
-
-func PauseGame():
-	paused = true
-	get_node("Options").Pause()
-func ResumeGame():
-	paused = false
-	get_node("Options").Resume()
-
-func AddHistoryEntry(dialogue_event:DialogueEvent):
-	var new_entry = history_entry_scene.instantiate()
-	new_entry.get_node("Name").text = dialogue_event.speaker_name
-	new_entry.get_node("Dialogue").text = dialogue_event.dialogue
-	new_entry.custom_minimum_size.y += (
-		new_entry.get_node("Dialogue").get_line_count()
-		+new_entry.get_node("Dialogue").text.count("\n")
-		)*53
-	
-	history_container.add_child(new_entry)
 
 func StartTypewriter():
 	typewriter = Typewriter.new()
@@ -150,17 +109,83 @@ func EndTypewriter():
 	dialogue_box.text = current_dialogue.dialogue
 	typewriter_ended.emit()
 
-func LoadDialogueEvent(Event:DialogueEvent):
-	if Event.bg_art:
-		bg_image.texture = Event.bg_art
-	if Event.character_sprite:
-		character_image.texture = Event.character_sprite
-	if Event.speaker_name:
-		speaker_name.text = Event.speaker_name
+
+func AddHistoryEntry(entry_data):
+	var new_entry = history_entry_scene.instantiate()
+	if entry_data is DialogueEvent:
+		new_entry.get_node("Name").text = entry_data.speaker_name
+		new_entry.get_node("Dialogue").text = entry_data.dialogue
+	elif entry_data is DialogueChoice:
+		if OS.has_environment("USERNAME"):
+				new_entry.get_node("Name").text = OS.get_environment("USERNAME")
+		elif OS.has_environment("USER"):
+				new_entry.get_node("Name").text = OS.get_environment("USER")
+		else:
+				new_entry.get_node("Name").text = "You"
+		new_entry.get_node("Dialogue").text = entry_data.ChoiceDialogue
+	
+	new_entry.custom_minimum_size.y += (
+		new_entry.get_node("Dialogue").get_line_count()
+		+new_entry.get_node("Dialogue").text.count("\n")
+		)*53
+	
+	history_container.add_child(new_entry)
+
+
+func StartDialogueChoice(dialogue_event:DialogueEvent):
+	choices_menu.visible = true
+	for i in dialogue_event.dialogue_choices:
+		var new_button:Button = choice_button_scene.instantiate()
+		new_button.text = i.ChoiceDialogue
+		
+		if i.NextScene:
+			new_button.pressed.connect(func():Autoloaded.LoadNewScene.emit(i.NextScene))
+		else:
+			new_button.pressed.connect(func():
+				AddHistoryEntry(i)
+				EndDialogueChoice(i.NextEvent))
+		
+		choices_container.add_child(new_button)
+
+func EndDialogueChoice(next_event:DialogueEvent):
+	choices_menu.visible = false
+	choice_ended.emit(next_event)
+	for i in choices_container.get_children():
+		i.queue_free()
+
+
+
+
+
+func OpenLog():
+	history_menu_open = true
+	history_menu.visible = true
+func CloseLog():
+	history_menu_open = false
+	history_menu.visible = false
+
+func HideUi():
+	ui_hidden = true
+	name_box.visible = false
+	main_box.visible = false
+	Engine.time_scale = 0
+func ShowUi():
+	ui_hidden = false
+	name_box.visible = true
+	main_box.visible = true
+	if paused == false:
+		Engine.time_scale = 1
+
+func PauseGame():
+	paused = true
+	pause_menu.Pause()
+func ResumeGame():
+	paused = false
+	pause_menu.Resume()
+
 
 func LoadNewScene(NewScene):
 	Autoloaded.LoadNewScene.emit(NewScene)
-
 
 
 func _ready() -> void:
@@ -168,12 +193,11 @@ func _ready() -> void:
 	DialogueLoop()
 	pass
 
-func ContinuePressed():
-	continue_pressed = true
-
 func _process(_delta) -> void:
 	if Input.is_action_just_pressed("Continue") or continue_pressed == true:
-		if ui_hidden == true:
+		if paused:
+			pass
+		elif ui_hidden == true:
 			ShowUi()
 		elif typewriter:
 			EndTypewriter()
@@ -195,3 +219,6 @@ func _process(_delta) -> void:
 		else:
 			ResumeGame()
 	continue_pressed = false
+
+func ContinuePressed():
+	continue_pressed = true
