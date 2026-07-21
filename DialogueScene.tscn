@@ -237,7 +237,7 @@ theme_override_constants/separation = 50
 [node name="D0001" type="Node" parent="DialogueTree" unique_id=481996021 node_paths=PackedStringArray("next_node")]
 script = ExtResource("2_efucv")
 speaker_name = "Cait"
-dialogue = "Hi, lets test out this dialogue system :3 ! "
+dialogue = "Hi, lets test out this dialogue system :3 !"
 character_sprite = ExtResource("3_gtste")
 bg_art = ExtResource("4_1ener")
 next_node = NodePath("../D0002")
@@ -246,4 +246,13 @@ metadata/_custom_type_script = "uid://bosofv4nj4i3v"
 [node name="D0002" type="Node" parent="DialogueTree" unique_id=1837794476]
 script = ExtResource("2_efucv")
 speaker_name = "Cait"
+dialogue = "here is a lot of text to test"
 metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="ContinueButton" type="Button" parent="." unique_id=724523588]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1048.0
+flat = true
+
+[connection signal="pressed" from="ContinueButton" to="." method="ContinuePressed"]

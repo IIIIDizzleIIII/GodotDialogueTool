@@ -14,18 +14,46 @@ var choices_menu:Panel = get_node("DialogueChoices")
 @onready
 var choices_container:VBoxContainer = get_node("DialogueChoices/Scroll/VBox")
 #endregion
+
 @export
 var start_dialogue:DialogueEvent
+var current_dialogue:DialogueEvent
+var next_dialogue:DialogueEvent
 
+var typewriter:Node
 
+signal typewriter_ended
+signal confirm_event
 
-func DialogueLoop(FirstEvent:DialogueEvent):
+var continue_pressed:bool = false
+
+func DialogueLoop():
 	while true:
-		pass
-		await get_tree().create_timer(1).timeout
+		LoadDialogueEvent(current_dialogue)
+		StartTypewriter()
+		await typewriter_ended
+		await confirm_event
+		if current_dialogue.dialogue_choices:
+			pass
+		else:
+			current_dialogue = current_dialogue.next_node
 
-func TypewriterEffect():
-	pass
+
+func StartTypewriter():
+	typewriter = Typewriter.new()
+	dialogue_box.add_child(typewriter)
+	typewriter.dialogue = current_dialogue.dialogue
+	typewriter.short_delay = 0.07
+	typewriter.long_delay = .15
+	typewriter.completed.connect(EndTypewriter)
+	
+	dialogue_box.text = ""
+	typewriter.Typewrite()
+
+func EndTypewriter():
+	typewriter.free()
+	dialogue_box.text = current_dialogue.dialogue
+	typewriter_ended.emit()
 
 func LoadDialogueEvent(Event:DialogueEvent):
 	if Event.bg_art:
@@ -36,5 +64,17 @@ func LoadDialogueEvent(Event:DialogueEvent):
 		speaker_name.text = Event.speaker_name
 
 func _ready() -> void:
-	LoadDialogueEvent(start_dialogue)
+	current_dialogue = start_dialogue
+	DialogueLoop()
 	pass
+
+func ContinuePressed():
+	continue_pressed = true
+
+func _process(delta) -> void:
+	if Input.is_action_just_pressed("Continue") or continue_pressed == true:
+		if typewriter:
+			EndTypewriter()
+		else:
+			confirm_event.emit()
+	continue_pressed = false
