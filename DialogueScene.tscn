@@ -215,6 +215,12 @@ text = "Firstname Lastname"
 label_settings = SubResource("LabelSettings_gtste")
 vertical_alignment = 1
 
+[node name="ContinueButton" type="Button" parent="." unique_id=724523588]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1048.0
+flat = true
+
 [node name="DialogueChoices" type="Panel" parent="." unique_id=1986109199]
 visible = false
 layout_mode = 0
@@ -280,12 +286,6 @@ dialogue = "Haha, you did it anyways ;p."
 character_sprite = ExtResource("6_n0jgp")
 dialogue_choices = [null, null]
 metadata/_custom_type_script = "uid://bosofv4nj4i3v"
-
-[node name="ContinueButton" type="Button" parent="." unique_id=724523588]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1048.0
-flat = true
 
 [node name="HistoryLog" type="Panel" parent="." unique_id=225036723]
 visible = false

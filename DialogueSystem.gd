@@ -10,6 +10,8 @@ var speaker_name:Label = get_node("CharacterNameBox/Label")
 @onready
 var dialogue_box:Label = get_node("MainBox/DialogueBox/ScrollContainer/DialogueLabel")
 @onready
+var continue_gem:TextureRect = get_node("MainBox/DialogueBox/ContinueGem")
+@onready
 var choices_menu:Panel = get_node("DialogueChoices")
 @onready
 var choices_container:VBoxContainer = get_node("DialogueChoices/Scroll/VBox")
@@ -19,6 +21,7 @@ var history_menu:Panel = get_node("HistoryLog")
 var history_container:VBoxContainer = get_node("HistoryLog/Scroll/VBox")
 #endregion
 
+var choice_button_scene = preload("res://ChoiceButton.tscn")
 var history_entry_scene = preload("res://HistoryEntry.tscn")
 
 
@@ -39,6 +42,7 @@ var awaiting_dialogue:bool = false
 
 signal typewriter_ended
 signal dialogue_ended
+signal choice_ended
 
 var history_menu_open:bool = false
 var continue_pressed:bool = false
@@ -48,8 +52,10 @@ var continue_pressed:bool = false
 func DialogueLoop():
 	while true:
 		LoadDialogueEvent(current_dialogue)
+		continue_gem.visible = false
 		StartTypewriter()
 		await typewriter_ended
+		continue_gem.visible = true
 		AddHistoryEntry(current_dialogue)
 		
 		awaiting_dialogue = true
@@ -57,9 +63,29 @@ func DialogueLoop():
 		awaiting_dialogue = false
 		
 		if current_dialogue.dialogue_choices:
-			pass
+			StartDialogueChoice(current_dialogue)
+			current_dialogue = await choice_ended
 		else:
 			current_dialogue = current_dialogue.next_node
+
+func StartDialogueChoice(dialogue_event:DialogueEvent):
+	choices_menu.visible = true
+	for i in dialogue_event.dialogue_choices:
+		var new_button:Button = choice_button_scene.instantiate()
+		new_button.text = i.ChoiceDialogue
+		
+		if i.NextScene:
+			printerr("HELPPPPP")
+		else:
+			new_button.pressed.connect(func():EndDialogueChoice(i.NextEvent))
+		
+		choices_container.add_child(new_button)
+
+func EndDialogueChoice(next_event:DialogueEvent):
+	choices_menu.visible = false
+	choice_ended.emit(next_event)
+	for i in choices_container.get_children():
+		i.queue_free()
 
 func OpenLog():
 	history_menu_open = true
@@ -69,10 +95,10 @@ func CloseLog():
 	history_menu_open = false
 	history_menu.visible = false
 
-func AddHistoryEntry(dialogue_node:DialogueEvent):
+func AddHistoryEntry(dialogue_event:DialogueEvent):
 	var new_entry = history_entry_scene.instantiate()
-	new_entry.get_node("Name").text = dialogue_node.speaker_name
-	new_entry.get_node("Dialogue").text = dialogue_node.dialogue
+	new_entry.get_node("Name").text = dialogue_event.speaker_name
+	new_entry.get_node("Dialogue").text = dialogue_event.dialogue
 	new_entry.custom_minimum_size.y += (
 		new_entry.get_node("Dialogue").get_line_count()
 		+new_entry.get_node("Dialogue").text.count("\n")
