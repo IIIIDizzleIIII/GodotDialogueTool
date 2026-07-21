@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://crlbjd206gwdu"]
+
+[ext_resource type="PackedScene" uid="uid://c10dotdgchywp" path="res://DialogueSystem/DialogueSystem.tscn" id="1_4ca7n"]
+[ext_resource type="Script" uid="uid://bosofv4nj4i3v" path="res://Classes/DialogueClass.gd" id="2_6u3ut"]
+[ext_resource type="Texture2D" uid="uid://brh0oter4a8m4" path="res://Assets/C1Sprites/Sprite1.tres" id="3_swiis"]
+[ext_resource type="Texture2D" uid="uid://dw8pfamqr81uo" path="res://Assets/bg.png" id="4_srcct"]
+[ext_resource type="Script" uid="uid://c13pfjjseguqo" path="res://Classes/ChoiceClass.gd" id="5_nsdn6"]
+[ext_resource type="Texture2D" uid="uid://c85jfynw3cna5" path="res://Assets/C1Sprites/Sprite4.tres" id="6_2lhxu"]
+
+[node name="Scene0001" type="Control" unique_id=1288848339]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueSystem" parent="." unique_id=1922153073 node_paths=PackedStringArray("start_dialogue") instance=ExtResource("1_4ca7n")]
+layout_mode = 1
+start_dialogue = NodePath("../DialogueTree/D0001")
+
+[node name="DialogueTree" type="Node" parent="." unique_id=790738070]
+
+[node name="D0001" type="Node" parent="DialogueTree" unique_id=1399150639 node_paths=PackedStringArray("next_node")]
+script = ExtResource("2_6u3ut")
+speaker_name = "Cait"
+dialogue = "Hi, lets test out this dialogue system :3 !"
+character_sprite = ExtResource("3_swiis")
+bg_art = ExtResource("4_srcct")
+next_node = NodePath("../D0002")
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0002" type="Node" parent="DialogueTree" unique_id=1125524568 node_paths=PackedStringArray("dialogue_choices")]
+script = ExtResource("2_6u3ut")
+speaker_name = "Cait"
+dialogue = "here is a lot of text to test.
+Lets try out making a choice!"
+dialogue_choices = [NodePath("C0001"), NodePath("C0002")]
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="C0001" type="Node" parent="DialogueTree/D0002" unique_id=1958334984 node_paths=PackedStringArray("NextEvent")]
+script = ExtResource("5_nsdn6")
+ChoiceDialogue = "Ok!"
+NextEvent = NodePath("../../D0003")
+metadata/_custom_type_script = "uid://c13pfjjseguqo"
+
+[node name="C0002" type="Node" parent="DialogueTree/D0002" unique_id=1940687128 node_paths=PackedStringArray("NextEvent")]
+script = ExtResource("5_nsdn6")
+ChoiceDialogue = "No thanks"
+NextEvent = NodePath("../../D0004")
+metadata/_custom_type_script = "uid://c13pfjjseguqo"
+
+[node name="D0003" type="Node" parent="DialogueTree" unique_id=1997016613 node_paths=PackedStringArray("next_node")]
+script = ExtResource("2_6u3ut")
+speaker_name = "Cait"
+dialogue = "Wow that was really cool!"
+character_sprite = ExtResource("6_2lhxu")
+next_node = NodePath("../D0005")
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0004" type="Node" parent="DialogueTree" unique_id=1956803317 node_paths=PackedStringArray("dialogue_choices")]
+script = ExtResource("2_6u3ut")
+dialogue = "Haha, you did it anyways ;p."
+character_sprite = ExtResource("6_2lhxu")
+dialogue_choices = [null, null]
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0005" type="Node" parent="DialogueTree" unique_id=1093629136]
+script = ExtResource("2_6u3ut")
+speaker_name = "Cait"
+dialogue = "Lets try changing the scene now."
+character_sprite = ExtResource("3_swiis")
+next_scene = "res://Scene0002.tscn"
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"

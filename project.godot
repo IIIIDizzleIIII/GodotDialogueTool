@@ -11,10 +11,14 @@ config_version=5
 [application]
 
 config/name="VisualNovelDemo"
-run/main_scene="uid://c10dotdgchywp"
+run/main_scene="uid://lmsu4o35t20e"
 config/features=PackedStringArray("4.6", "Forward Plus")
 run/max_fps=120
 config/icon="res://icon.svg"
+
+[autoload]
+
+Autoloaded="*uid://dbynx7fqely6l"
 
 [display]
 

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bo3gjgjpvbgpr"]
+
+[ext_resource type="PackedScene" uid="uid://c10dotdgchywp" path="res://DialogueSystem/DialogueSystem.tscn" id="1_fdr82"]
+[ext_resource type="Script" uid="uid://bosofv4nj4i3v" path="res://Classes/DialogueClass.gd" id="2_3kfwo"]
+[ext_resource type="Texture2D" uid="uid://brh0oter4a8m4" path="res://Assets/C1Sprites/Sprite1.tres" id="3_1et46"]
+[ext_resource type="Texture2D" uid="uid://7q2tcy1ue7ok" path="res://Assets/C1Sprites/Sprite3.tres" id="4_pdhgs"]
+
+[node name="Scene0002" type="Control" unique_id=1919312325]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueSystem" parent="." unique_id=1922153073 node_paths=PackedStringArray("start_dialogue") instance=ExtResource("1_fdr82")]
+layout_mode = 1
+start_dialogue = NodePath("../DialogueTree/D0001")
+
+[node name="DialogueTree" type="Node" parent="." unique_id=1922433623]
+
+[node name="D0001" type="Node" parent="DialogueTree" unique_id=1830103923 node_paths=PackedStringArray("next_node")]
+script = ExtResource("2_3kfwo")
+speaker_name = "Cait"
+dialogue = "Hi, welcome to the second scene."
+character_sprite = ExtResource("3_1et46")
+next_node = NodePath("../D0002")
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0002" type="Node" parent="DialogueTree" unique_id=1648820119]
+script = ExtResource("2_3kfwo")
+speaker_name = "Cait"
+dialogue = "It's a little empty isn't it?"
+character_sprite = ExtResource("4_pdhgs")
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"

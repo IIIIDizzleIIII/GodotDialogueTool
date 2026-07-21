@@ -21,8 +21,8 @@ var history_menu:Panel = get_node("HistoryLog")
 var history_container:VBoxContainer = get_node("HistoryLog/Scroll/VBox")
 #endregion
 
-var choice_button_scene = preload("res://ChoiceButton.tscn")
-var history_entry_scene = preload("res://HistoryEntry.tscn")
+var choice_button_scene = preload("res://DialogueSystem/ChoiceButton.tscn")
+var history_entry_scene = preload("res://DialogueSystem/HistoryEntry.tscn")
 
 
 @export
@@ -65,7 +65,10 @@ func DialogueLoop():
 		if current_dialogue.dialogue_choices:
 			StartDialogueChoice(current_dialogue)
 			current_dialogue = await choice_ended
-		else:
+		elif current_dialogue.next_scene:
+			LoadNewScene(current_dialogue.next_scene)
+			break
+		elif current_dialogue.next_node:
 			current_dialogue = current_dialogue.next_node
 
 func StartDialogueChoice(dialogue_event:DialogueEvent):
@@ -129,6 +132,9 @@ func LoadDialogueEvent(Event:DialogueEvent):
 		character_image.texture = Event.character_sprite
 	if Event.speaker_name:
 		speaker_name.text = Event.speaker_name
+
+func LoadNewScene(NewScene):
+	Autoloaded.LoadNewScene.emit(NewScene)
 
 
 
