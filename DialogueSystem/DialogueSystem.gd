@@ -46,6 +46,7 @@ signal choice_ended
 
 var history_menu_open:bool = false
 var continue_pressed:bool = false
+var ui_hidden:bool = false
 
 
 
@@ -101,6 +102,15 @@ func CloseLog():
 	history_menu_open = false
 	history_menu.visible = false
 
+func HideUi():
+	ui_hidden = true
+	get_node("CharacterNameBox").visible = false
+	get_node("MainBox").visible = false
+func ShowUi():
+	ui_hidden = false
+	get_node("CharacterNameBox").visible = true
+	get_node("MainBox").visible = true
+
 func AddHistoryEntry(dialogue_event:DialogueEvent):
 	var new_entry = history_entry_scene.instantiate()
 	new_entry.get_node("Name").text = dialogue_event.speaker_name
@@ -152,6 +162,8 @@ func ContinuePressed():
 
 func _process(_delta) -> void:
 	if Input.is_action_just_pressed("Continue") or continue_pressed == true:
+		if ui_hidden == true:
+			ShowUi()
 		if typewriter:
 			EndTypewriter()
 		elif awaiting_dialogue == true:
@@ -161,4 +173,9 @@ func _process(_delta) -> void:
 			OpenLog()
 		else:
 			CloseLog()
+	if Input.is_action_just_pressed("HideUi"):
+		if ui_hidden == false:
+			HideUi()
+		else:
+			ShowUi()
 	continue_pressed = false

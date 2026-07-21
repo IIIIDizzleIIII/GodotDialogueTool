@@ -275,5 +275,6 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [connection signal="pressed" from="MainBox/Ribbon/HBoxContainer/LogButton" to="." method="OpenLog"]
+[connection signal="pressed" from="MainBox/Ribbon/HBoxContainer/HideUiButton" to="." method="HideUi"]
 [connection signal="pressed" from="ContinueButton" to="." method="ContinuePressed"]
 [connection signal="pressed" from="HistoryLog/ExitButton" to="." method="CloseLog"]
