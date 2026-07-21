@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cxtumhw08fqqn" path="res://DialogueSystem/Options.gd" id="2_wnpwp"]
 [ext_resource type="Theme" uid="uid://bggvvics5lmde" path="res://Themes/Ribbon.tres" id="3_3v4rn"]
 [ext_resource type="LabelSettings" uid="uid://cuxhspeabgbye" path="res://Themes/DialogueLabelTheme.tres" id="4_63xp1"]
+[ext_resource type="Texture2D" uid="uid://deyxno74uxbp2" path="res://Assets/gem.png" id="4_cv7uq"]
 [ext_resource type="Theme" uid="uid://c80aullc77hcj" path="res://Themes/DialogueHistory.tres" id="4_yurqn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_55ycn"]
@@ -165,15 +166,8 @@ offset_top = -25.0
 offset_right = 28.0
 grow_horizontal = 2
 grow_vertical = 0
+texture = ExtResource("4_cv7uq")
 expand_mode = 1
-
-[node name="TEMP" type="ColorRect" parent="MainBox/DialogueBox/ContinueGem" unique_id=1675833936]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainBox/DialogueBox" unique_id=311307877]
 layout_mode = 0
