@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://lmsu4o35t20e"]
 
 [ext_resource type="Script" uid="uid://bs0ajdwt666d7" path="res://SceneManager.gd" id="1_ihsup"]
+[ext_resource type="Theme" uid="uid://bgbemjsx72j4u" path="res://Themes/MainTheme.tres" id="1_qkept"]
 
 [node name="Manager" type="Control" unique_id=1986919081]
 layout_mode = 3
@@ -9,4 +10,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_qkept")
 script = ExtResource("1_ihsup")

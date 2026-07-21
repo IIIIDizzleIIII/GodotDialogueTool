@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://dhuh18ocr1o1p"]
 
+[ext_resource type="Theme" uid="uid://bnchbgxsyxjcv" path="res://Themes/LogEntry.tres" id="1_8ke03"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_vmb8j"]
 font_size = 38
 
 [node name="HistoryEntry" type="Panel" unique_id=1820236099]
 custom_minimum_size = Vector2(1890, 27)
+theme = ExtResource("1_8ke03")
 
 [node name="Name" type="Label" parent="." unique_id=1515238900]
 layout_mode = 0
