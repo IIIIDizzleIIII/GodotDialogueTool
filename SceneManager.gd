@@ -11,4 +11,4 @@ func LoadNewScene(ScenePath:String):
 
 func _ready() -> void:
 	Autoloaded.LoadNewScene.connect(LoadNewScene)
-	Autoloaded.LoadNewScene.emit("res://Scene0001.tscn")
+	Autoloaded.LoadNewScene.emit("res://Title.tscn")

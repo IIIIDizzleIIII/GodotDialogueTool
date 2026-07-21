@@ -33,7 +33,7 @@ metadata/_custom_type_script = "uid://bosofv4nj4i3v"
 [node name="D0002" type="Node" parent="DialogueTree" unique_id=1125524568 node_paths=PackedStringArray("dialogue_choices")]
 script = ExtResource("2_6u3ut")
 speaker_name = "Cait"
-dialogue = "here is a lot of text to test.
+dialogue = "Here is a lot of text to test.
 Lets try out making a choice!"
 dialogue_choices = [NodePath("C0001"), NodePath("C0002")]
 metadata/_custom_type_script = "uid://bosofv4nj4i3v"
@@ -58,12 +58,33 @@ character_sprite = ExtResource("6_2lhxu")
 next_node = NodePath("../D0005")
 metadata/_custom_type_script = "uid://bosofv4nj4i3v"
 
-[node name="D0004" type="Node" parent="DialogueTree" unique_id=1956803317 node_paths=PackedStringArray("dialogue_choices")]
+[node name="D0004" type="Node" parent="DialogueTree" unique_id=1956803317 node_paths=PackedStringArray("next_node")]
 script = ExtResource("2_6u3ut")
+speaker_name = "Cait"
 dialogue = "Haha, you did it anyways ;p."
 character_sprite = ExtResource("6_2lhxu")
-dialogue_choices = [null, null]
+next_node = NodePath("../D0006")
 metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0006" type="Node" parent="DialogueTree" unique_id=1924314258 node_paths=PackedStringArray("dialogue_choices")]
+script = ExtResource("2_6u3ut")
+speaker_name = "Cait"
+dialogue = "Just because you diddn't want to pick an option, heres two more ;3."
+character_sprite = ExtResource("3_swiis")
+dialogue_choices = [NodePath("C0001"), NodePath("C0002")]
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="C0001" type="Node" parent="DialogueTree/D0006" unique_id=1786088948 node_paths=PackedStringArray("NextEvent")]
+script = ExtResource("5_nsdn6")
+ChoiceDialogue = "This one will lead to a crash."
+NextEvent = NodePath("../../D0007")
+metadata/_custom_type_script = "uid://c13pfjjseguqo"
+
+[node name="C0002" type="Node" parent="DialogueTree/D0006" unique_id=1045577681]
+script = ExtResource("5_nsdn6")
+ChoiceDialogue = "This one goes back to the title!"
+NextScene = "res://Title.tscn"
+metadata/_custom_type_script = "uid://c13pfjjseguqo"
 
 [node name="D0005" type="Node" parent="DialogueTree" unique_id=1093629136]
 script = ExtResource("2_6u3ut")
@@ -71,4 +92,11 @@ speaker_name = "Cait"
 dialogue = "Lets try changing the scene now."
 character_sprite = ExtResource("3_swiis")
 next_scene = "res://Scene0002.tscn"
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0007" type="Node" parent="DialogueTree" unique_id=920854637]
+script = ExtResource("2_6u3ut")
+speaker_name = "Cait"
+dialogue = "Well you asked for it!"
+character_sprite = ExtResource("6_2lhxu")
 metadata/_custom_type_script = "uid://bosofv4nj4i3v"

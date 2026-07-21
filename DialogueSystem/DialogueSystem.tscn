@@ -20,7 +20,7 @@ font_size = 36
 [sub_resource type="LabelSettings" id="LabelSettings_bdddm"]
 font_size = 35
 
-[node name="DialogueSystem" type="Control" unique_id=1922153073 node_paths=PackedStringArray("start_dialogue")]
+[node name="DialogueSystem" type="Control" unique_id=1922153073]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +28,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_08vf1")
-start_dialogue = NodePath("")
 
 [node name="BackgroundArt" type="TextureRect" parent="." unique_id=1615268578]
 layout_mode = 0
@@ -214,6 +213,7 @@ vertical_alignment = 1
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1048.0
+focus_mode = 1
 flat = true
 
 [node name="DialogueChoices" type="Panel" parent="." unique_id=1986109199]

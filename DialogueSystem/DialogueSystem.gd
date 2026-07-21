@@ -72,6 +72,7 @@ func DialogueLoop():
 			current_dialogue = current_dialogue.next_node
 		else:
 			get_tree().quit()
+			break
 
 func StartDialogueChoice(dialogue_event:DialogueEvent):
 	choices_menu.visible = true
@@ -80,7 +81,7 @@ func StartDialogueChoice(dialogue_event:DialogueEvent):
 		new_button.text = i.ChoiceDialogue
 		
 		if i.NextScene:
-			Autoloaded.LoadNewScene.emit(i.NextScene)
+			new_button.pressed.connect(func():Autoloaded.LoadNewScene.emit(i.NextScene))
 		else:
 			new_button.pressed.connect(func():EndDialogueChoice(i.NextEvent))
 		

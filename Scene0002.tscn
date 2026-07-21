@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bosofv4nj4i3v" path="res://Classes/DialogueClass.gd" id="2_3kfwo"]
 [ext_resource type="Texture2D" uid="uid://brh0oter4a8m4" path="res://Assets/C1Sprites/Sprite1.tres" id="3_1et46"]
 [ext_resource type="Texture2D" uid="uid://7q2tcy1ue7ok" path="res://Assets/C1Sprites/Sprite3.tres" id="4_pdhgs"]
+[ext_resource type="Texture2D" uid="uid://dkdgk72fkijl2" path="res://Assets/C1Sprites/Sprite2.tres" id="5_3kfwo"]
 
 [node name="Scene0002" type="Control" unique_id=1919312325]
 layout_mode = 3
@@ -27,9 +28,59 @@ character_sprite = ExtResource("3_1et46")
 next_node = NodePath("../D0002")
 metadata/_custom_type_script = "uid://bosofv4nj4i3v"
 
-[node name="D0002" type="Node" parent="DialogueTree" unique_id=1648820119]
+[node name="D0002" type="Node" parent="DialogueTree" unique_id=1648820119 node_paths=PackedStringArray("next_node")]
 script = ExtResource("2_3kfwo")
 speaker_name = "Cait"
 dialogue = "It's a little empty isn't it?"
 character_sprite = ExtResource("4_pdhgs")
+next_node = NodePath("../D0003")
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0003" type="Node" parent="DialogueTree" unique_id=1464838283 node_paths=PackedStringArray("next_node")]
+script = ExtResource("2_3kfwo")
+speaker_name = "Cait"
+dialogue = "The sheer nothingness is kind of overwhelming."
+character_sprite = ExtResource("4_pdhgs")
+next_node = NodePath("../D0004")
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0004" type="Node" parent="DialogueTree" unique_id=533956243 node_paths=PackedStringArray("next_node")]
+script = ExtResource("2_3kfwo")
+speaker_name = "Cait"
+dialogue = "This is quite a small demo."
+character_sprite = ExtResource("3_1et46")
+next_node = NodePath("../D0005")
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0005" type="Node" parent="DialogueTree" unique_id=131273182 node_paths=PackedStringArray("next_node")]
+script = ExtResource("2_3kfwo")
+speaker_name = "Cait"
+dialogue = "After its over, what will happen to me?"
+character_sprite = ExtResource("4_pdhgs")
+next_node = NodePath("../D0006")
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0006" type="Node" parent="DialogueTree" unique_id=1289967959 node_paths=PackedStringArray("next_node")]
+script = ExtResource("2_3kfwo")
+speaker_name = "Cait"
+dialogue = "Is this all I was made to do?"
+character_sprite = ExtResource("4_pdhgs")
+next_node = NodePath("../D0007")
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0007" type="Node" parent="DialogueTree" unique_id=2124902538 node_paths=PackedStringArray("next_node")]
+script = ExtResource("2_3kfwo")
+speaker_name = "Cait"
+dialogue = "I think the demo will reset soon."
+character_sprite = ExtResource("4_pdhgs")
+next_node = NodePath("../D0008")
+metadata/_custom_type_script = "uid://bosofv4nj4i3v"
+
+[node name="D0008" type="Node" parent="DialogueTree" unique_id=695907241]
+script = ExtResource("2_3kfwo")
+speaker_name = "Cait"
+dialogue = "Wait!
+Please don't leave!"
+character_sprite = ExtResource("5_3kfwo")
+next_scene = "res://Title.tscn"
 metadata/_custom_type_script = "uid://bosofv4nj4i3v"
