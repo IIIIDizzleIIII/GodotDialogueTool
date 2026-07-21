@@ -160,9 +160,12 @@ func EndDialogueChoice(next_event:DialogueEvent):
 func OpenLog():
 	history_menu_open = true
 	history_menu.visible = true
+	Engine.time_scale = 0
 func CloseLog():
 	history_menu_open = false
 	history_menu.visible = false
+	if paused == false:
+		Engine.time_scale = 1
 
 func HideUi():
 	ui_hidden = true

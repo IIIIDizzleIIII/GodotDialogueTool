@@ -4,6 +4,7 @@
 [ext_resource type="Theme" uid="uid://bgbemjsx72j4u" path="res://Themes/MainTheme.tres" id="1_vv8hl"]
 [ext_resource type="Script" uid="uid://cxtumhw08fqqn" path="res://DialogueSystem/Options.gd" id="2_wnpwp"]
 [ext_resource type="Theme" uid="uid://bggvvics5lmde" path="res://Themes/Ribbon.tres" id="3_3v4rn"]
+[ext_resource type="LabelSettings" uid="uid://cuxhspeabgbye" path="res://Themes/DialogueLabelTheme.tres" id="4_63xp1"]
 [ext_resource type="Theme" uid="uid://c80aullc77hcj" path="res://Themes/DialogueHistory.tres" id="4_yurqn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_55ycn"]
@@ -14,9 +15,6 @@ font_size = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_efucv"]
 font_size = 20
-
-[sub_resource type="LabelSettings" id="LabelSettings_aay13"]
-font_size = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_gtste"]
 font_size = 36
@@ -187,7 +185,7 @@ offset_bottom = 315.0
 [node name="DialogueLabel" type="Label" parent="MainBox/DialogueBox/ScrollContainer" unique_id=1742466328]
 custom_minimum_size = Vector2(1885, 0)
 layout_mode = 2
-label_settings = SubResource("LabelSettings_aay13")
+label_settings = ExtResource("4_63xp1")
 horizontal_alignment = 1
 autowrap_mode = 3
 
