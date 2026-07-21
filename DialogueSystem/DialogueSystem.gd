@@ -70,6 +70,8 @@ func DialogueLoop():
 			break
 		elif current_dialogue.next_node:
 			current_dialogue = current_dialogue.next_node
+		else:
+			get_tree().quit()
 
 func StartDialogueChoice(dialogue_event:DialogueEvent):
 	choices_menu.visible = true
@@ -78,7 +80,7 @@ func StartDialogueChoice(dialogue_event:DialogueEvent):
 		new_button.text = i.ChoiceDialogue
 		
 		if i.NextScene:
-			printerr("HELPPPPP")
+			Autoloaded.LoadNewScene.emit(i.NextScene)
 		else:
 			new_button.pressed.connect(func():EndDialogueChoice(i.NextEvent))
 		
@@ -121,6 +123,7 @@ func StartTypewriter():
 	typewriter.Typewrite()
 
 func EndTypewriter():
+	typewriter.kill = true
 	typewriter.queue_free()
 	dialogue_box.text = current_dialogue.dialogue
 	typewriter_ended.emit()
