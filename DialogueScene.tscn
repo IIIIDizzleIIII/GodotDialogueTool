@@ -22,6 +22,9 @@ font_size = 22
 [sub_resource type="LabelSettings" id="LabelSettings_gtste"]
 font_size = 36
 
+[sub_resource type="LabelSettings" id="LabelSettings_bdddm"]
+font_size = 35
+
 [node name="DialogueScene" type="Control" unique_id=1922153073 node_paths=PackedStringArray("start_dialogue")]
 layout_mode = 3
 anchors_preset = 15
@@ -284,4 +287,42 @@ offset_right = 1920.0
 offset_bottom = 1048.0
 flat = true
 
+[node name="HistoryLog" type="Panel" parent="." unique_id=225036723]
+visible = false
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="ExitButton" type="Button" parent="HistoryLog" unique_id=2134829929]
+layout_mode = 0
+offset_left = 1871.0
+offset_right = 1920.0
+offset_bottom = 49.0
+text = "Exit"
+
+[node name="Title" type="Label" parent="HistoryLog" unique_id=1029545339]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.0
+offset_right = 140.0
+offset_bottom = 49.0
+grow_horizontal = 2
+text = "Dialogue History"
+label_settings = SubResource("LabelSettings_bdddm")
+
+[node name="Scroll" type="ScrollContainer" parent="HistoryLog" unique_id=428549048]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 57.0
+offset_right = 1913.0
+offset_bottom = 1056.0
+
+[node name="VBox" type="VBoxContainer" parent="HistoryLog/Scroll" unique_id=566935013]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[connection signal="pressed" from="MainBox/Ribbon/HBoxContainer/LogButton" to="." method="OpenLog"]
 [connection signal="pressed" from="ContinueButton" to="." method="ContinuePressed"]
+[connection signal="pressed" from="HistoryLog/ExitButton" to="." method="CloseLog"]

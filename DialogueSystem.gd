@@ -13,17 +13,25 @@ var dialogue_box:Label = get_node("MainBox/DialogueBox/ScrollContainer/DialogueL
 var choices_menu:Panel = get_node("DialogueChoices")
 @onready
 var choices_container:VBoxContainer = get_node("DialogueChoices/Scroll/VBox")
+@onready
+var history_menu:Panel = get_node("HistoryLog")
+@onready
+var history_container:VBoxContainer = get_node("HistoryLog/Scroll/VBox")
 #endregion
+
+var history_entry_scene = preload("res://HistoryEntry.tscn")
+
+
+@export
+var start_dialogue:DialogueEvent
 
 @export_subgroup("Settings")
 @export
 var typewriter_short_delay:float = 0.7
 @export
 var typewriter_long_delay:float = 1.5
-
 @export_subgroup("")
-@export
-var start_dialogue:DialogueEvent
+
 var current_dialogue:DialogueEvent
 
 var typewriter:Node
@@ -32,6 +40,7 @@ var awaiting_dialogue:bool = false
 signal typewriter_ended
 signal dialogue_ended
 
+var history_menu_open:bool = false
 var continue_pressed:bool = false
 
 
@@ -41,6 +50,7 @@ func DialogueLoop():
 		LoadDialogueEvent(current_dialogue)
 		StartTypewriter()
 		await typewriter_ended
+		AddHistoryEntry(current_dialogue)
 		
 		awaiting_dialogue = true
 		await dialogue_ended
@@ -50,6 +60,25 @@ func DialogueLoop():
 			pass
 		else:
 			current_dialogue = current_dialogue.next_node
+
+func OpenLog():
+	history_menu_open = true
+	history_menu.visible = true
+
+func CloseLog():
+	history_menu_open = false
+	history_menu.visible = false
+
+func AddHistoryEntry(dialogue_node:DialogueEvent):
+	var new_entry = history_entry_scene.instantiate()
+	new_entry.get_node("Name").text = dialogue_node.speaker_name
+	new_entry.get_node("Dialogue").text = dialogue_node.dialogue
+	new_entry.custom_minimum_size.y += (
+		new_entry.get_node("Dialogue").get_line_count()
+		+new_entry.get_node("Dialogue").text.count("\n")
+		)*53
+	
+	history_container.add_child(new_entry)
 
 func StartTypewriter():
 	typewriter = Typewriter.new()
@@ -63,7 +92,7 @@ func StartTypewriter():
 	typewriter.Typewrite()
 
 func EndTypewriter():
-	typewriter.free()
+	typewriter.queue_free()
 	dialogue_box.text = current_dialogue.dialogue
 	typewriter_ended.emit()
 
@@ -91,4 +120,9 @@ func _process(_delta) -> void:
 			EndTypewriter()
 		elif awaiting_dialogue == true:
 			dialogue_ended.emit()
+	if Input.is_action_just_pressed("History"):
+		if history_menu_open == false:
+			OpenLog()
+		else:
+			CloseLog()
 	continue_pressed = false
