@@ -15,29 +15,41 @@ var choices_menu:Panel = get_node("DialogueChoices")
 var choices_container:VBoxContainer = get_node("DialogueChoices/Scroll/VBox")
 #endregion
 
+@export_subgroup("Settings")
+@export
+var typewriter_short_delay:float = 0.7
+@export
+var typewriter_long_delay:float = 1.5
+
+@export_subgroup("")
 @export
 var start_dialogue:DialogueEvent
 var current_dialogue:DialogueEvent
-var next_dialogue:DialogueEvent
 
 var typewriter:Node
+var awaiting_dialogue:bool = false
 
 signal typewriter_ended
-signal confirm_event
+signal dialogue_ended
 
 var continue_pressed:bool = false
+
+
 
 func DialogueLoop():
 	while true:
 		LoadDialogueEvent(current_dialogue)
 		StartTypewriter()
 		await typewriter_ended
-		await confirm_event
+		
+		awaiting_dialogue = true
+		await dialogue_ended
+		awaiting_dialogue = false
+		
 		if current_dialogue.dialogue_choices:
 			pass
 		else:
 			current_dialogue = current_dialogue.next_node
-
 
 func StartTypewriter():
 	typewriter = Typewriter.new()
@@ -63,6 +75,8 @@ func LoadDialogueEvent(Event:DialogueEvent):
 	if Event.speaker_name:
 		speaker_name.text = Event.speaker_name
 
+
+
 func _ready() -> void:
 	current_dialogue = start_dialogue
 	DialogueLoop()
@@ -71,10 +85,10 @@ func _ready() -> void:
 func ContinuePressed():
 	continue_pressed = true
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	if Input.is_action_just_pressed("Continue") or continue_pressed == true:
 		if typewriter:
 			EndTypewriter()
-		else:
-			confirm_event.emit()
+		elif awaiting_dialogue == true:
+			dialogue_ended.emit()
 	continue_pressed = false
